@@ -1,5 +1,6 @@
 package com.rmq.example.publisher.controller;
 
+import com.rmq.example.publisher.model.QueueMessage;
 import com.rmq.example.publisher.service.PublisherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +18,12 @@ public class Publisher {
     private PublisherService publisherService;
 
     @PostMapping("/publish")
-    public void publish(@RequestBody String text) {
+    public void publishText(@RequestBody String text) {
         publisherService.publish(text, queueName);
+    }
+
+    @PostMapping("/publish/json")
+    public void publishJson(@RequestBody QueueMessage json) {
+        publisherService.publishJson(json, queueName);
     }
 }
